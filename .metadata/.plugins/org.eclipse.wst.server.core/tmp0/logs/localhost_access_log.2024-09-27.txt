@@ -1,0 +1,7 @@
+127.0.0.1 - - [27/Sep/2024:08:55:08 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [27/Sep/2024:08:55:14 +0900] "GET /controller/ HTTP/1.1" 200 182
+0:0:0:0:0:0:0:1 - - [27/Sep/2024:08:55:14 +0900] "GET /favicon.ico HTTP/1.1" 404 761
+0:0:0:0:0:0:0:1 - - [27/Sep/2024:09:37:32 +0900] "GET /controller/boardList.do HTTP/1.1" 200 5851
+0:0:0:0:0:0:0:1 - - [27/Sep/2024:09:39:40 +0900] "GET /controller/boardInsertForm.do HTTP/1.1" 200 2440
+0:0:0:0:0:0:0:1 - - [27/Sep/2024:09:43:46 +0900] "GET /controller/boardInsertForm.do HTTP/1.1" 200 2440
+0:0:0:0:0:0:0:1 - - [27/Sep/2024:10:23:46 +0900] "GET /controller/boardContent.do?idx=1 HTTP/1.1" 200 1865

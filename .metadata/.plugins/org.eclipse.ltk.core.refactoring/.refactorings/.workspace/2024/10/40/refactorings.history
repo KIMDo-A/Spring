@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 4 resources" deleteContents="false" description="Delete 4 resources" element1="/SpringMVC02/src/main/webapp/WEB-INF/views/boardContent.jsp" element2="/SpringMVC02/src/main/webapp/WEB-INF/views/boardInsertForm.jsp" element3="/SpringMVC02/src/main/webapp/WEB-INF/views/boardUpdateForm.jsp" element4="/SpringMVC02/src/main/webapp/WEB-INF/views/home.jsp" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="4" stamp="1728002341323"/>
+</session>

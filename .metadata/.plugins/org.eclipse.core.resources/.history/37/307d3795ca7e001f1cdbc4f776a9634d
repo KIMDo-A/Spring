@@ -1,0 +1,140 @@
+package kr.board.controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.board.entity.Board;
+import kr.board.mapper.BoardMapper;
+
+//이 클래스가 컨트롤러이다!라고 적어야 handler가 찾을 수 있음
+//★@Controller 어노테이션 
+@Controller
+public class BoardController {	
+	// 게시글 전체 조회
+	// 내가 어떤 url을 요청하는냐에 따라 다양한 기능을 수행 
+	// ★@RequestMapping(url/"~") : 아래 메소드와 연결해서 기능을 수행하겠다 
+	
+	//★@Autowired로 연결
+	@Autowired
+	private BoardMapper mapper; 
+	// 사용하기위해 BoardMapper에서 가져옴
+	// 클래스 안 메소드 쓰려면 객체생성해야함
+	// 인터페이스와 추상클래스는 객체 생성 할 수가 없음 -> 쓸수있음 @Autowired
+	
+	//처음페이지
+	@RequestMapping("/boardList.do")
+	public String boardList(Model model) {
+		// public : 누구나 접근
+		// String : Controller가 기능을 수행하고 return이 ViewName은 문자열임
+		// 메소드 이름 = View Name과 동일하게 씀
+		// 데이터는 Model에 저장하고 우리가 봐야할 JSP이름을 돌려줌
+		
+		// 번호(특정 게시글을 구분 짓기 위해), 제목, 내용, 작성자, 날짜, 조회수
+		// 하나의 게시글정보는 총 "6개" 정보가 있음
+		// 우리는 이 6개의 데이터를 하나로 묶고싶다(=하나의 데이터타입으로)
+		// 그런데, 번호,숫자,제목 ...등 데이터 타입이 다름 -> 원래 자바는 불가능함 -> 만들자 -> DTO
+		// 클래스 DTO(=VO 값을 담고 있는 객체)만들기
+		// kr.board.entity - Board.java
+		
+		// DTO만들기
+//		Board dto1 = new Board(1, "안녕하세요 여러분! 저는 김도아입니다.", "ㅋㅋ", "김도아", "2024-09-25", 7);
+//		Board dto2 = new Board(2, "오늘 KT메뉴 뭐야", "ㅋㅋ", "최수빈", "2024-09-25", 12);
+//		Board dto3 = new Board(3, "오오오! 신난다 신나", "ㅋㅋ", "신범식", "2024-09-26", 7);
+		// 총 게시글 3개 boardList로가져가야함 -> 그럼 Model에 넣어줘야함 -> 하나로 묶어서 넣자 -> 개수 안정해짐 -> arrayList에 넣어 저장
+		
+		ArrayList<Board> list = mapper.boardList();
+		
+//		ArrayList<Board> list = new ArrayList<Board>();
+		//<데이터타입> Board=클래스명=데이터타입 지금 빈리스트만들었음, 이제 list안에 3개의 데이터 넣기 
+//		list.add(dto1);
+//		list.add(dto2);
+//		list.add(dto3);
+		
+		// 잠깐 저장할수있는 ★Model★필요 -> 위 boardlist()안에 매개변수 Model넣기
+		// 위 public String boardList(Model model) {
+		model.addAttribute("list", list);
+		// 모델에 저장하기.addAttribute("변수이름표달아주기(문자열형태)", list);
+			
+		return "boardList";
+		// ViewName : 보통 메소드이름과 url을 맞춤			
+	}
+	
+	// 게시글 작성 페이지 이동 -> 글쓰기 버튼 누르면 작성하는 페이지
+	@RequestMapping("/boardInsertForm.do")
+	public String boardInsertForm() {
+		
+		return "boardInsertForm";
+	}
+	
+	// 게시글 작성 기능 -> 게시글 작성 페이지에서 작성버튼 누르고 난 다음 페이지
+	@RequestMapping("/boardInsert.do")
+	public String boardInsert(Board dto) {
+		// 제출버튼을 눌렀을때, 제목, 내용 ,작성자 3가지 넘어옴
+		// 태그안 name이 Board class명과 같음
+		// dto에 3가지가 들어가 있음 
+		
+		// DB관련일을 mybatis가 그럼 mapper에게 알려줘야함
+		mapper.boardInsert(dto);
+		// 아래 빨간밑줄대서 create~ -> BoardMapper가서 sql문 작성
+		
+		//return "boardList";
+		// 문제점) 작성버튼을 눌렀더니, 빈 리스트가 뜸!
+		// 그런데, boardList로 직접 갔더니 추가가 되있음! 왜?
+		// -> Model안에 boardList를 안넣었기 때문에 안보임
+		// 전체 게시글목록을 보려면 너 다른애한테 보여달라고 말해 !!!
+		// redirect: 너 다시 접근해
+		return "redirect:/boardList.do";
+	}
+	
+	// 게시글 상세보기 페이지
+	@RequestMapping("/boardContent.do")
+	public String boardContent(@RequestParam("idx") int idx, Model model) {
+		// 두번째,
+		// 상세보기할때 한개의 데이터 idx만 보냈음!
+		// @RequestParam : 하나만 받아올때 사용, 파라미터로 넘어온 값을 int idx로 저장하겠다!
+		
+		Board dto = mapper.boardContent(idx);
+		// mapper야 상세 게시글 정보 알려줘! -> 내가 보고싶은 게시글의 idx넘겨주기
+		// 하나의 게시글은 총 6개의 정보를 하나로 묶는 데이터 타입 Board로 받아오겠다!
+		// 빨간줄 -> Creath method~ -> BoardMapper로 이동
+		
+		// 네번째,
+		model.addAttribute("dto", dto);
+		// 상세 보기 데이터 저장을 model에 했었음!
+		// dto라는 이름으로 dto를 저장하겠다
+	
+		// 다섯번째, ViewName 돌려주기
+		return "boardContent";
+		// 상세 페이지 만들러가기 boardContent.jsp		
+
+	}
+	
+	// 게시물 삭제 기능
+	@RequestMapping("/boardDelete.do?idx=${dto.idx}")
+	public String boardDelete() {
+		System.out.println("삭제 요청"); // 콘솔창에 확인하기
+		//mapper.boardDelete();
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
