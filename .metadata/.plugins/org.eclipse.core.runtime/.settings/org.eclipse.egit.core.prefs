@@ -1,5 +1,5 @@
-GitRepositoriesView.GitDirectories=C\:\\eGovFrame-4.0.0\\workspace.edu\\AIschool\\.git;
-GitRepositoriesView.GitDirectories.relative=AIschool\\.git;
+GitRepositoriesView.GitDirectories=C\:\\eGovFrame-4.0.0\\workspace.edu\\.git;C\:\\eGovFrame-4.0.0\\workspace.edu\\AIschool\\.git;
+GitRepositoriesView.GitDirectories.relative=.git;AIschool\\.git;
 RepositorySearchDialogSearchPath=C\:\\eGovFrame-4.0.0\\workspace.edu
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

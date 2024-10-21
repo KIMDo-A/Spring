@@ -20,7 +20,7 @@ public interface BoardMapper {
 	@Select("SELECT * FROM BOARD")
 	public ArrayList<Board> boardList();
 
-	@Insert("INSERT INTO BOARD(TITLE, CONTENT, WRITER, IMG) VALUES(#{title}, #{content}, #{writer}, #{img})")
+	@Insert("INSERT INTO BOARD(TITLE, CONTENT, WRITER) VALUES(#{title}, #{content}, #{writer})")
 	// 물음표가 아니라 참조해서 넣어줌 #{}
 	public void boardInsert(Board dto);
 	//     int : 삽입된 행의 갯수 정상 동작 => 1 이상의 값이 리턴 / 실패 => 0
