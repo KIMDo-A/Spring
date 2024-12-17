@@ -21,3 +21,11 @@
     - 수정 처리 
 5. 글삭제(//boardDelete.do?idx={idx})
 6. 파일(이미지)첨부하기
+
+---
+
+# 프로젝트
+1. SpringMVC01 : @Controller를 이용한 게시판 구현 
+2. SpringMVC02 : @RestController를 이용한 게시판 구현 
+3. SpringMVC03 : 센서 데이터 기반 게시판 구현
+
