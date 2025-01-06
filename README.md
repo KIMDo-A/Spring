@@ -1,11 +1,16 @@
 # 개발환경
 
-- **전자정부표준프레임워크**
-- **IDE**: Eclipse
-- **Spring**: 5.0.1
-- **JDK**: 11.0.5
-- **MySQL**: 5.7.32
-- **MyBatis**
+### 1. 개발환경
+- **JDK**: 11.0.5  
+- **IDE**: Eclipse  
+- **Database**: MySQL Server 5.7.32  
+- **Framework**: Spring 5.0.1  
+
+### 2. Library or Framework
+- **전자정부표준프레임워크**  
+- **MyBatis**  
+- **JSP**  
+- **Lombok**
 
 ---
 
